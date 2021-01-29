@@ -17,6 +17,7 @@ import me.ste.stevesseries.components.map.render.MapColor;
 import me.ste.stevesseries.components.map.text.TextAnchor;
 import me.ste.stevesseries.components.map.text.builtin.DefaultFont;
 import me.ste.stevesseries.inventoryguilibrary.GUIManager;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
@@ -41,7 +42,11 @@ public class BasicTriggerComponent extends MapComponent implements ConfigurableC
             @Override
             public void onClick(Player player, MapData data, MapClickType type, int x, int y, float rawX, float rawY) {
                 if(player.getGameMode() == GameMode.CREATIVE && type == MapClickType.RIGHT && player.isSneaking()) {
-                    GUIManager.open(player, new ComponentModificationGUI(self));
+                    if(player.hasPermission("stevesseries.components.modify")) {
+                        GUIManager.open(player, new ComponentModificationGUI(self));
+                    } else {
+                        player.sendMessage(ChatColor.RED + "Insufficient permissions");
+                    }
                     return;
                 }
 
