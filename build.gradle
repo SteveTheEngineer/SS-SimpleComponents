@@ -1,0 +1,41 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: "java"
+
+group = "me.ste.stevesseries"
+version = "0"
+if(System.env.BUILD_NUMBER != null) {
+    version = "" + System.env.BUILD_NUMBER
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        name = "generic"
+        url = "https://repo.stev.gq/repository/generic/"
+    }
+}
+
+dependencies {
+    compileOnly "org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT"
+    compileOnly "me.ste.stevesseries:components:8"
+    compileOnly "me.ste.stevesseries:inventoryguilibrary:9"
+    compileOnly "me.ste.stevesseries:base:24"
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}

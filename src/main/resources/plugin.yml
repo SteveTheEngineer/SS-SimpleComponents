@@ -1,0 +1,7 @@
+name: SS-SimpleComponents
+version: @version@
+main: me.ste.stevesseries.simplecomponents.SimpleComponents
+api-version: 1.16
+authors: [SteveTheEngineer]
+depend: [SS-Components, SS-InventoryGUILibrary, SS-Base]
+description: A basic component set for Steve's Series | Components
